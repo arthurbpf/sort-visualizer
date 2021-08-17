@@ -1,24 +1,24 @@
 {
-  "name": "sort-visualizer",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@nivo/bar": "^0.73.1",
-    "@nivo/core": "^0.73.0",
-    "next": "11.0.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "@types/react": "17.0.16",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.0.1",
-    "typescript": "4.3.5"
-  }
+	"name": "sort-visualizer",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "NODE_OPTIONS='--inspect' next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@nivo/bar": "^0.73.1",
+		"@nivo/core": "^0.73.0",
+		"next": "11.0.1",
+		"react": "17.0.2",
+		"react-dom": "17.0.2"
+	},
+	"devDependencies": {
+		"@types/react": "17.0.16",
+		"eslint": "7.32.0",
+		"eslint-config-next": "11.0.1",
+		"typescript": "4.3.5"
+	}
 }

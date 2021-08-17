@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { BarDatum, ResponsiveBar } from '@nivo/bar';
-
-interface chartData extends BarDatum {
-	id: number;
-	value: number;
-}
+import { ResponsiveBar } from '@nivo/bar';
+import ChartData from '../interfaces/ChartData';
+import bubbleSort from '../utils/bubbleSort';
+import useInterval from '../hooks/useInterval';
 
 export default function Home() {
-	const [data, setData] = useState<chartData[]>([]);
+	const [data, setData] = useState<ChartData[]>([]);
+	const [isRunning, setIsRunning] = useState(false);
+	const [orderingGenerator, setOrderingGenerator] = useState<Generator>();
 
 	const generateRandomData = () => {
 		let newData = [];
@@ -26,10 +26,30 @@ export default function Home() {
 		generateRandomData();
 	}, []);
 
+	useInterval(
+		() => {
+			if (!orderingGenerator) {
+				setIsRunning(false);
+				return;
+			}
+
+			const { value, done } = orderingGenerator.next();
+			setData([...value]);
+
+			console.log(done);
+
+			setIsRunning(!done);
+		},
+		isRunning ? 10 : null
+	);
+
 	const onClickChangeData = () => {
 		let newData = [...data];
 
-		setData(newData.sort((a, b) => (a.value < b.value ? 1 : -1)));
+		const generator = bubbleSort(newData);
+
+		setOrderingGenerator(generator);
+		setIsRunning(true);
 	};
 
 	return (
