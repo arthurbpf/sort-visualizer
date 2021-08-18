@@ -9,9 +9,19 @@ export default function* bubbleSort(data: ChartData[], asc: boolean = true) {
 				data[j] = aux;
 			}
 
+			data[j].state = 'comparing';
+			data[j + 1].state = 'comparing';
+
 			yield data;
+
+			data[j].state = 'unordered';
+			data[j + 1].state = 'unordered';
 		}
+
+		data[data.length - (i + 1)].state = 'ordered';
+		yield data;
 	}
 
+	data[0].state = 'ordered';
 	return data;
 }
