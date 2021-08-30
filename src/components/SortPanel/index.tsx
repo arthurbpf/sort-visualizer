@@ -4,6 +4,7 @@ import ChartData from '../../interfaces/ChartData';
 import bubbleSort from '../../utils/bubbleSort';
 import randomNumberInRange from '../../utils/randomNumberInRange';
 import SortingBarChart from '../SortingBarChart';
+import algorithmsArray from '../../utils/algorithmsArray';
 
 const SortPanel: React.FC = () => {
 	const [data, setData] = useState<ChartData[]>([]);
@@ -33,6 +34,14 @@ const SortPanel: React.FC = () => {
 		generateRandomData();
 	}, []);
 
+	const onClickSort = () => {
+		const generator = bubbleSort(data);
+
+		setOrderingGenerator(generator);
+
+		setIsRunning(true);
+	};
+
 	useInterval(
 		() => {
 			if (!orderingGenerator) {
@@ -45,15 +54,8 @@ const SortPanel: React.FC = () => {
 
 			setIsRunning(!done);
 		},
-		isRunning ? sortSpeed : null
+		isRunning ? sortSpeed : null,
 	);
-
-	const onClickSort = () => {
-		const generator = bubbleSort(data);
-
-		setOrderingGenerator(generator);
-		setIsRunning(true);
-	};
 
 	const getColor = (bar: any) => {
 		const colors = {
@@ -72,6 +74,20 @@ const SortPanel: React.FC = () => {
 			<h1>Sort Visualizer</h1>
 
 			<SortingBarChart data={data} colors={getColor}></SortingBarChart>
+
+			{algorithmsArray.map((algo) => {
+				return (
+					<div key={algo.id}>
+						<input
+							type="radio"
+							name="sortingAlgorithm"
+							id={algo.id}
+							value={algo.id}
+						/>
+						<label htmlFor={algo.id}>{algo.name}</label>
+					</div>
+				);
+			})}
 
 			<input
 				type="range"
