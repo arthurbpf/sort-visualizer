@@ -1,4 +1,4 @@
-import bubbleSort from './bubbleSort';
+import bubbleSort from './algorithmsImplementation/bubbleSort';
 
 interface ISortingAlgorithm {
 	id: string;

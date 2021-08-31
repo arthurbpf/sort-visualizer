@@ -1,4 +1,4 @@
-import ChartData from '../interfaces/ChartData';
+import ChartData from '../../interfaces/ChartData';
 
 export default function* bubbleSort(data: ChartData[], asc: boolean = true) {
 	for (let i = 0; i < data.length - 1; i++) {

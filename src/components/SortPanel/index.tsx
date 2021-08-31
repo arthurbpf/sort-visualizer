@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import useInterval from '../../hooks/useInterval';
 import ChartData from '../../interfaces/ChartData';
-import bubbleSort from '../../utils/bubbleSort';
 import randomNumberInRange from '../../utils/randomNumberInRange';
 import SortingBarChart from '../SortingBarChart';
 import algorithmsArray from '../../utils/algorithmsArray';
@@ -34,11 +33,15 @@ const SortPanel: React.FC = () => {
 		generateRandomData();
 	}, []);
 
+	const onChangeAlgorithm = (algorithmId: string) => {
+		const algorithm = algorithmsArray.find(
+			(item) => item.id === algorithmId,
+		);
+
+		setOrderingGenerator(algorithm?.implementation(data));
+	};
+
 	const onClickSort = () => {
-		const generator = bubbleSort(data);
-
-		setOrderingGenerator(generator);
-
 		setIsRunning(true);
 	};
 
@@ -83,6 +86,7 @@ const SortPanel: React.FC = () => {
 							name="sortingAlgorithm"
 							id={algo.id}
 							value={algo.id}
+							onChange={(e) => onChangeAlgorithm(e.target.value)}
 						/>
 						<label htmlFor={algo.id}>{algo.name}</label>
 					</div>
