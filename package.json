@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next devt",
+		"dev": "cross-env NODE_OPTIONS='--inspect' next dev",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint"
@@ -17,6 +17,7 @@
 	},
 	"devDependencies": {
 		"@types/react": "17.0.16",
+		"cross-env": "^7.0.3",
 		"eslint": "7.32.0",
 		"eslint-config-next": "11.0.1",
 		"prettier": "^2.3.2",
