@@ -7,9 +7,13 @@ import algorithmsArray from '../../utils/algorithmsArray';
 
 const SortPanel: React.FC = () => {
 	const [data, setData] = useState<ChartData[]>([]);
+	const [sortedData, setSortedData] = useState<ChartData[]>([]);
 	const [sortSpeed, setSortSpeed] = useState(50);
 	const [isRunning, setIsRunning] = useState(false);
 	const [orderingGenerator, setOrderingGenerator] = useState<Generator>();
+	const [selectedAlgorithm, setSelectedAlgorithm] = useState(
+		algorithmsArray[0],
+	);
 
 	const minValue = 500;
 	const maxValue = 1000;
@@ -26,6 +30,7 @@ const SortPanel: React.FC = () => {
 		}
 
 		setData(newData);
+		setSortedData(newData);
 		setIsRunning(false);
 	};
 
@@ -33,12 +38,15 @@ const SortPanel: React.FC = () => {
 		generateRandomData();
 	}, []);
 
-	const onChangeAlgorithm = (algorithmId: string) => {
-		const algorithm = algorithmsArray.find(
-			(item) => item.id === algorithmId,
-		);
+	useEffect(() => {
+		setOrderingGenerator(selectedAlgorithm.implementation(data));
+	}, [data, selectedAlgorithm]);
 
-		setOrderingGenerator(algorithm?.implementation(data));
+	const onChangeAlgorithm = (algorithmId: string) => {
+		let index =
+			algorithmsArray.findIndex((item) => item.id === algorithmId) || 0;
+
+		setSelectedAlgorithm(algorithmsArray[index]);
 	};
 
 	const onClickSort = () => {
@@ -53,7 +61,7 @@ const SortPanel: React.FC = () => {
 			}
 
 			const { value, done } = orderingGenerator.next();
-			setData([...value]);
+			setSortedData([...value]);
 
 			setIsRunning(!done);
 		},
@@ -76,7 +84,10 @@ const SortPanel: React.FC = () => {
 		<div style={{ height: 500 }}>
 			<h1>Sort Visualizer</h1>
 
-			<SortingBarChart data={data} colors={getColor}></SortingBarChart>
+			<SortingBarChart
+				data={sortedData}
+				colors={getColor}
+			></SortingBarChart>
 
 			{algorithmsArray.map((algo) => {
 				return (
@@ -86,6 +97,7 @@ const SortPanel: React.FC = () => {
 							name="sortingAlgorithm"
 							id={algo.id}
 							value={algo.id}
+							checked={selectedAlgorithm.id === algo.id}
 							onChange={(e) => onChangeAlgorithm(e.target.value)}
 						/>
 						<label htmlFor={algo.id}>{algo.name}</label>
