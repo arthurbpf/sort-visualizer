@@ -4,6 +4,7 @@ import ChartData from '../../interfaces/ChartData';
 import randomNumberInRange from '../../utils/randomNumberInRange';
 import SortingBarChart from '../SortingBarChart';
 import algorithmsArray from '../../utils/algorithmsArray';
+import { MainDiv } from './styles';
 
 const SortPanel: React.FC = () => {
 	const [data, setData] = useState<ChartData[]>([]);
@@ -81,7 +82,7 @@ const SortPanel: React.FC = () => {
 	};
 
 	return (
-		<div style={{ height: 500 }}>
+		<MainDiv style={{ height: 500 }}>
 			<h1>Sort Visualizer</h1>
 
 			<SortingBarChart
@@ -118,7 +119,7 @@ const SortPanel: React.FC = () => {
 				SORT IT OUT!
 			</button>
 			<button onClick={generateRandomData}>ROLL THE DICE!</button>
-		</div>
+		</MainDiv>
 	);
 };
 
