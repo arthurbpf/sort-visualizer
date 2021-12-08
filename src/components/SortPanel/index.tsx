@@ -4,7 +4,8 @@ import ChartData from '../../interfaces/ChartData';
 import randomNumberInRange from '../../utils/randomNumberInRange';
 import SortingBarChart from '../SortingBarChart';
 import algorithmsArray from '../../utils/algorithmsArray';
-import { MainDiv } from './styles';
+import { BarChartContainer, MainDiv } from './styles';
+import { css } from '@linaria/core';
 
 const SortPanel: React.FC = () => {
 	const [data, setData] = useState<ChartData[]>([]);
@@ -82,43 +83,49 @@ const SortPanel: React.FC = () => {
 	};
 
 	return (
-		<MainDiv style={{ height: 500 }}>
+		<MainDiv>
 			<h1>Sort Visualizer</h1>
 
-			<SortingBarChart
-				data={sortedData}
-				colors={getColor}
-			></SortingBarChart>
+			<BarChartContainer>
+				<SortingBarChart
+					data={sortedData}
+					colors={getColor}
+				></SortingBarChart>
+			</BarChartContainer>
 
-			{algorithmsArray.map((algo) => {
-				return (
-					<div key={algo.id}>
-						<input
-							type="radio"
-							name="sortingAlgorithm"
-							id={algo.id}
-							value={algo.id}
-							checked={selectedAlgorithm.id === algo.id}
-							onChange={(e) => onChangeAlgorithm(e.target.value)}
-						/>
-						<label htmlFor={algo.id}>{algo.name}</label>
-					</div>
-				);
-			})}
+			<div>
+				{algorithmsArray.map((algo) => {
+					return (
+						<div key={algo.id}>
+							<input
+								type="radio"
+								name="sortingAlgorithm"
+								id={algo.id}
+								value={algo.id}
+								checked={selectedAlgorithm.id === algo.id}
+								onChange={(e) =>
+									onChangeAlgorithm(e.target.value)
+								}
+							/>
+							<label htmlFor={algo.id}>{algo.name}</label>
+						</div>
+					);
+				})}
 
-			<input
-				type="range"
-				min={0}
-				max={1000}
-				onChange={(e) =>
-					setSortSpeed(Math.abs(Number(e.target.value) - 1000))
-				}
-			></input>
+				<input
+					type="range"
+					min={0}
+					max={1000}
+					onChange={(e) =>
+						setSortSpeed(Math.abs(Number(e.target.value) - 1000))
+					}
+				></input>
 
-			<button onClick={onClickSort} disabled={isRunning}>
-				SORT IT OUT!
-			</button>
-			<button onClick={generateRandomData}>ROLL THE DICE!</button>
+				<button onClick={onClickSort} disabled={isRunning}>
+					SORT IT OUT!
+				</button>
+				<button onClick={generateRandomData}>ROLL THE DICE!</button>
+			</div>
 		</MainDiv>
 	);
 };
