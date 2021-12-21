@@ -5,7 +5,6 @@ import randomNumberInRange from '../../utils/randomNumberInRange';
 import SortingBarChart from '../SortingBarChart';
 import algorithmsArray from '../../utils/algorithmsArray';
 import { BarChartContainer, MainDiv } from './styles';
-import { css } from '@linaria/core';
 
 const SortPanel: React.FC = () => {
 	const [data, setData] = useState<ChartData[]>([]);
