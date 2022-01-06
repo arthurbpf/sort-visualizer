@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react';
+import { GiSnail } from 'react-icons/gi';
+import { BsFillLightningFill, BsDice5 } from 'react-icons/bs';
+import { MdSort } from 'react-icons/md';
 import useInterval from '../../hooks/useInterval';
 import ChartData from '../../interfaces/ChartData';
 import randomNumberInRange from '../../utils/randomNumberInRange';
 import SortingBarChart from '../SortingBarChart';
 import algorithmsArray from '../../utils/algorithmsArray';
-import { BarChartContainer, MainDiv } from './styles';
+import {
+	BarChartContainer,
+	MainDiv,
+	SettingsDiv,
+	AlgosDiv,
+	SpeedSelectionDiv,
+	ButtonsDiv,
+} from './styles';
 
 const SortPanel: React.FC = () => {
 	const [data, setData] = useState<ChartData[]>([]);
@@ -92,10 +102,10 @@ const SortPanel: React.FC = () => {
 				></SortingBarChart>
 			</BarChartContainer>
 
-			<div>
+			<SettingsDiv>
 				{algorithmsArray.map((algo) => {
 					return (
-						<div key={algo.id}>
+						<AlgosDiv key={algo.id}>
 							<input
 								type="radio"
 								name="sortingAlgorithm"
@@ -107,24 +117,35 @@ const SortPanel: React.FC = () => {
 								}
 							/>
 							<label htmlFor={algo.id}>{algo.name}</label>
-						</div>
+						</AlgosDiv>
 					);
 				})}
 
-				<input
-					type="range"
-					min={0}
-					max={1000}
-					onChange={(e) =>
-						setSortSpeed(Math.abs(Number(e.target.value) - 1000))
-					}
-				></input>
+				<SpeedSelectionDiv>
+					<GiSnail />
+					<input
+						type="range"
+						min={0}
+						max={1000}
+						onChange={(e) =>
+							setSortSpeed(
+								Math.abs(Number(e.target.value) - 1000),
+							)
+						}
+					></input>
+					<BsFillLightningFill />
+				</SpeedSelectionDiv>
 
+				<ButtonsDiv>
 				<button onClick={onClickSort} disabled={isRunning}>
-					SORT IT OUT!
+					<MdSort /> SORT IT OUT!
 				</button>
-				<button onClick={generateRandomData}>ROLL THE DICE!</button>
-			</div>
+				<button onClick={generateRandomData}>
+					<BsDice5 />
+					ROLL THE DICE!
+				</button>
+				</ButtonsDiv>
+			</SettingsDiv>
 		</MainDiv>
 	);
 };
