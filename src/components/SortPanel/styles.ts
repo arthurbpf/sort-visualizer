@@ -22,12 +22,6 @@ export const SettingsDiv = styled.div`
 	* {
 		margin: 0.2rem 0;
 	}
-
-	button {
-		display: flex;
-		align-items: center;
-		align-content: center;
-	}
 `;
 
 export const AlgosDiv = styled.div`
@@ -42,8 +36,7 @@ export const ButtonsDiv = styled.div`
 	display: flex;
 	justify-content: center;
 
-	* {
-		height: 50px;
-		margin: 0 1rem;
+	button {
+		margin: 1rem;
 	}
 `;

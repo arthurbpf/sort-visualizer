@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { GiSnail } from 'react-icons/gi';
 import { BsFillLightningFill, BsDice5 } from 'react-icons/bs';
 import { MdSort } from 'react-icons/md';
+import Button from '../Button';
+import RangeInput from '../RangeInput';
 import useInterval from '../../hooks/useInterval';
 import ChartData from '../../interfaces/ChartData';
 import randomNumberInRange from '../../utils/randomNumberInRange';
 import SortingBarChart from '../SortingBarChart';
 import algorithmsArray from '../../utils/algorithmsArray';
+import { colors as globalColors } from '../../styles/globals';
 import {
 	BarChartContainer,
 	MainDiv,
@@ -81,9 +84,9 @@ const SortPanel: React.FC = () => {
 
 	const getColor = (bar: any) => {
 		const colors = {
-			comparing: '#ff0',
-			ordered: '#f00',
-			unordered: '#000',
+			comparing: globalColors.PRIMARY_COLOR,
+			ordered: globalColors.PRIMARY_COLOR_LIGHT,
+			unordered: globalColors.PRIMARY_COLOR_DARK,
 		};
 
 		const { state } = bar.data as ChartData;
@@ -93,7 +96,7 @@ const SortPanel: React.FC = () => {
 
 	return (
 		<MainDiv>
-			<h1>Sort Visualizer</h1>
+			<h1>Sorting Visualizer</h1>
 
 			<BarChartContainer>
 				<SortingBarChart
@@ -123,7 +126,7 @@ const SortPanel: React.FC = () => {
 
 				<SpeedSelectionDiv>
 					<GiSnail />
-					<input
+					<RangeInput
 						type="range"
 						min={0}
 						max={1000}
@@ -132,18 +135,19 @@ const SortPanel: React.FC = () => {
 								Math.abs(Number(e.target.value) - 1000),
 							)
 						}
-					></input>
+					/>
 					<BsFillLightningFill />
 				</SpeedSelectionDiv>
 
 				<ButtonsDiv>
-				<button onClick={onClickSort} disabled={isRunning}>
-					<MdSort /> SORT IT OUT!
-				</button>
-				<button onClick={generateRandomData}>
-					<BsDice5 />
-					ROLL THE DICE!
-				</button>
+					<Button onClick={onClickSort} disabled={isRunning}>
+						<MdSort />
+						<p>SORT IT OUT!</p>
+					</Button>
+					<Button onClick={generateRandomData}>
+						<BsDice5 />
+						<p>ROLL THE DICE!</p>
+					</Button>
 				</ButtonsDiv>
 			</SettingsDiv>
 		</MainDiv>
