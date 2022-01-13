@@ -1,16 +1,38 @@
 import { styled } from '@linaria/react';
+import {colors} from '../../styles/globals'
 
-const defaultStyle = `
+const defaultTrackStyle = `
+	width: 100%;
+	height: 10px;
+	cursor: pointer;
+	background: ${colors.PRIMARY_COLOR};
+	border-radius: 5px;
+`;
 
+const defaultThumbStyle = `
+	-webkit-appearance: none;
+	height: 20px;
+	width: 20px;
+	margin-top: -5px;
+	border-radius: 50%;
+	background: ${colors.PRIMARY_COLOR};
+	cursor: pointer;
 `;
 
 export const StyledRangeInput = styled.input`
-	input[type='range']::-webkit-slider-runnable-track {
+	::-webkit-slider-runnable-track {
+		${defaultTrackStyle}
 	}
 
-	input[type='range']::-moz-range-track {
+	::-moz-range-track {
+		${defaultTrackStyle}
 	}
 
-	input[type='range']::-ms-track {
+	::-webkit-slider-thumb {
+		${defaultThumbStyle}
+	}
+
+	::-moz-range-thumb {
+		${defaultThumbStyle}
 	}
 `;
