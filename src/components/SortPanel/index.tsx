@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { GiSnail } from 'react-icons/gi';
-import { BsFillLightningFill, BsDice5 } from 'react-icons/bs';
+import { FaRandom } from 'react-icons/fa';
+import { BsFillLightningFill} from 'react-icons/bs';
 import { MdSort } from 'react-icons/md';
 import Button from '../Button';
 import RangeInput from '../RangeInput';
@@ -145,7 +146,7 @@ const SortPanel: React.FC = () => {
 						<p>SORT IT OUT!</p>
 					</Button>
 					<Button onClick={generateRandomData}>
-						<BsDice5 />
+						<FaRandom />
 						<p>ROLL THE DICE!</p>
 					</Button>
 				</ButtonsDiv>
